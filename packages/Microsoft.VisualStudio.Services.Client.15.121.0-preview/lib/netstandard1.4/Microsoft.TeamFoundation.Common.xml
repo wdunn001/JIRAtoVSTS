@@ -1,0 +1,3179 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Microsoft.TeamFoundation.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Microsoft.TeamFoundation.Common.UrlConstants">
+            <summary>
+                URL-related constants.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Common.UrlConstants.SafeUriSchemes">
+            <summary>
+                Approved list of URL schemes.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Common.Internal.StringUtil">
+            <summary>
+            A class with random string processing helper routines.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Common.Internal.StringUtil.defaultConsoleWidth">
+            <summary>
+            Line width used to calculate estimated buffer size
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ParseCommandLine(System.String)">
+            <summary>
+            Parse the supplied command-line, ignoring the application name and returning the list
+            of arguments in an array.  This differs from the built-in .NET command line parameter
+            parsing in that '\\' is not treated as an escape character.  The only recognized
+            "special" sequence is that a pair of double quotes inside a quoted string is
+            translated to a single double quote.  Other double quote characters are used to
+            bound arguments.
+            Examples: abc -> abc; a bc -> a, bc; "a bc" -> a bc; "a""bc" -> a"bc; """a""" -> "a"
+            </summary>
+            <param name="cmdLine">The command line to parse.</param>
+            <returns>An array of parsed parameters.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ParseCommandLineArgument(System.String,System.Int32@)">
+            <summary>
+            Parse the supplied command-line, starting at the given position and return the
+            next argument found. The startPos parameter is updated to the new position.
+            The only recognized "special" sequence is that a pair of double quotes inside a
+            quoted string is translated to a single double quote.
+            Other double quote characters are used to bound arguments.
+            Examples: abc -> abc; a bc -> a, bc; "a bc" -> a bc; "a""bc" -> a"bc; """a""" -> "a"
+            </summary>
+            <param name="cmdLine">The command line to parse.</param>
+            <returns>The argument found; or null</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.FormatColumnOutput(System.String[],System.String[0:,0:],System.String,System.Int32,System.Text.Encoding)">
+            <summary>
+            Format contents into tabular columns
+            </summary>
+            <param name="headers">array of header names (should already be localized)</param>
+            <param name="contents">rectangular 2-dimensional array</param>
+            <param name="indent">the indentation at the beginning of each line of output</param>
+            <param name="lineWidth">the maximum width of each line of output</param>
+            <param name="encoding">the console encoding (used for calculating string widths)</param>
+            <returns>format to be used with Write() calls for printing out column-based output</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.FormatColumnOutput(System.String[],System.String[0:,0:],System.String,System.Int32[],System.Boolean,System.Text.Encoding)">
+            <summary>
+            Format contents into tabular columns; the last column is not padded (except of separator)
+            </summary>
+            <param name="headers">array of header names (should already be localized)</param>
+            <param name="contents">rectangular 2-dimensional array</param>
+            <param name="indent">the indentation at the beginning of each line of output</param>
+            <param name="maxWidths">the maximum width of each column</param>
+            <param name="encoding">the console encoding (used for calculating string widths)</param>
+            <returns>format to be used with Write() calls for printing out column-based output</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.GetRowFormat(System.String[],System.String,System.Text.Encoding)">
+            <summary>
+            Generate the block-based format string (already ends in a newline) for displaying
+            /format:detailed types of information
+            </summary>
+            <param name="headers">array of header names (should already be localized)</param>
+            <param name="indent">the indentation at the beginning of each line of output</param>
+            <param name="encoding">the console encoding (used to calculate string widths)</param>
+            <returns>format block (already ends in newline, use Write() instead of WriteLine()</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.GetRowFormat(System.String[],System.String,System.String,System.Text.Encoding)">
+            <summary>
+            Generate the block-based format string (already ends in a newline) for displaying
+            /format:detailed types of information
+            </summary>
+            <param name="headers">array of header names (should already be localized)</param>
+            <param name="indent">the indentation at the beginning of each line of output</param>
+            <param name="rowTemplate">string formatter used to format field name and its value</param>
+            <param name="encoding">the console encoding (used to calculate string widths)</param>
+            <returns>format block (already ends in newline, use Write() instead of WriteLine()</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.GetRowFormat(System.String[],System.String,System.String,System.Int32,System.Text.Encoding)">
+            <summary>
+            Generate the block-based format string (already ends in a newline) for displaying
+            /format:detailed types of information
+            </summary>
+            <param name="headers">array of header names (should already be localized)</param>
+            <param name="indent">the indentation at the beginning of each line of output</param>
+            <param name="rowTemplate">string formatter used to format field name and its value</param>
+            <param name="encoding">the console encoding (used to calculate string widths)</param>
+            <returns>format block (already ends in newline, use Write() instead of WriteLine()</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.Truncate(System.String,System.Int32,System.Boolean)">
+            <summary>
+            Truncates the string to the given number of Unicode (2-byte) characters, without breaking
+            across multi-character Unicode text elements such as surrogate pairs or combining
+            characters.
+            </summary>
+            <param name="text">the text to truncate</param>
+            <param name="maximumCharacters">the maximum number of Unicode characters allowed</param>
+            <param name="addEllipsis">if true, add standard "..." ellipsis if string is truncated</param>
+            <returns>a string no wider than width</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.Truncate(System.String,System.Int32,System.Text.Encoding)">
+            <summary>
+            Truncates the string to the maximum width.
+            </summary>
+            <param name="text">the text to truncate</param>
+            <param name="width">the maximum width</param>
+            <param name="encoding">the console encoding (used to calculate string widths)</param>
+            <returns>a string no wider than width</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.TruncateLeft(System.String,System.Int32,System.Text.Encoding)">
+            <summary>
+            Chops chars from the left until the string fits in the maximum width.
+            </summary>
+            <param name="text">the text to truncate</param>
+            <param name="width">the maximum width</param>
+            <param name="encoding">the console encoding (used to calculate string widths)</param>
+            <returns>a string no wider than width</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.CalculateColumnsWidth(System.String[],System.String[0:,0:],System.Text.Encoding)">
+            <summary>
+            Calculates width of the columns as maximum of width of column's header and each of its cell's width.
+            The last column's width is calculated only as its header's width.
+            </summary>
+            <param name="headers">array of header names (should already be localized)</param>
+            <param name="contents">rectangular 2-dimensional array</param>
+            <param name="encoding">the console encoding (used to calculate string widths)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.CalculateWidth(System.String,System.Text.Encoding)">
+            <summary>
+            Given a string, compute the console display width.  The console width is
+            determined by the number of bytes needed to represent the text string in the console
+            encoding (see the discussion in work item 16710).
+            </summary>
+            <param name="text">the text</param>
+            <param name="encoding">the console encoding</param>
+            <returns>the width of the string in the console</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.CalculateWidth(System.Char[],System.Text.Encoding)">
+            <summary>
+            Given a character array, compute the console display width.  The console width is
+            determined by the number of bytes needed to represent the characters in the console
+            encoding (see the discussion in work item 16710).
+            </summary>
+            <param name="chars">the characters</param>
+            <param name="encoding">the console encoding</param>
+            <returns>the width of the characters in the console</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.Format(System.String,System.Object[])">
+            A little helper function to alleviate some typing associated with loading resources and
+            formatting the strings.  In DEBUG builds, it also asserts that the number of format
+            arguments and the length of args match.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.FormatInvariant(System.String,System.Object[])">
+            <summary>
+            Simple wrapper for String.Format(CultureInfo.InvariantCulture, ...).
+            </summary>
+            <param name="format"></param>
+            <param name="args"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.FormatCommentForOneLine(System.String)">
+            <summary>
+            Format a comment for one line displays.
+            This finds the first non blank line and displays up to s_maxCommentDisplayLength
+            characters. It handles tabs and new lines as well.
+            </summary>
+            <param name="comment">The comment to be formatted</param>
+            <returns>a formatted comment for one line display</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.FormatCommentForOneLine(System.String,System.Int32)">
+            <summary>
+            Format a comment for one line displays.
+            This finds the first non blank line and displays up to s_maxCommentDisplayLength
+            characters. It handles tabs and new lines as well.
+            </summary>
+            <param name="comment">The comment to be formatted</param>
+            <param name="maxCommentDisplayLength">Maximum comment length</param>
+            <returns>a formatted comment for one line display</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ContainsIllegalCharacters(System.String,System.String)">
+             <summary>
+             ContainsIllegalCharacters will check if the stringToValidate contains any of characters
+             defined in the set of characters in validCharacters.
+            
+             NOTE: The overload that takes a HashSet will allow the validation to occur much faster
+                 if the caller needs to validate strings multiple times with the same set this is an
+                 appraoch with improved performance.
+             </summary>
+             <param name="stringToValidate">The string that needs to be validated.</param>
+             <param name="validCharacters">The set of characters that are allowed in the string.</param>
+             <returns>True if the string contains characters that are not in the validCharacters set.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ContainsIllegalCharacters(System.String,System.Collections.Generic.HashSet{System.Char})">
+            <summary>
+            ContainsIllegalCharacters will check if the stringToValidate contains any of characters
+            defined in the set of characters in validCharacters.
+            </summary>
+            <param name="stringToValidate">The string that needs to be validated.</param>
+            <param name="validCharacters">The set of characters that are allowed in the string.</param>
+            <returns>True if the string contains characters that are not in the validCharacters set.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.QuoteName(System.String)">
+            <summary>
+            Returns a string with the delimiters added to make the input string a valid SQL Server delimited identifier.
+            This method implements behaviour QUOTENAME (Transact-SQL). It never throws. If parameter is invalid the method returns null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.QuoteName(System.String,System.Char)">
+            <summary>
+            Returns a string with the delimiters added to make the input string a valid SQL Server delimited identifier.
+            This method implements behaviour QUOTENAME (Transact-SQL). It never throws. If parameter is invalid, the method returns null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ReplaceTokens(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Boolean@)">
+            <summary>
+            Replaces the name of each token embedded in the specified string with the string equivalent of the value of the token, then returns the resulting string.
+            </summary>
+            <param name="text">A string containing the name of zero or more resources. Each resource is quoted with ## characters.</param>
+            <param name="tokenPrefix">A string that represent token prefix. Must be non-empty string.</param>
+            <param name="tokenSuffix">A string that represent token suffix. Must be non-empty string.</param>
+            <param name="tokens">A collection of tokens.</param>
+            <param name="replacedAll">When this method returns, contains true if all tokens were replaced; false otherwise.</param>
+            <returns>A string with each token replaced by its value.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ReplaceTokens(System.String,System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Func{System.String,System.String},System.Boolean@)">
+            <summary>
+            Replaces the name of each token embedded in the specified string with the string equivalent of the value of the token, then returns the resulting string.
+            </summary>
+            <param name="text">A string containing the name of zero or more resources. Each resource is quoted with ## characters.</param>
+            <param name="tokenPrefix">A string that represent token prefix. Must be non-empty string.</param>
+            <param name="tokenSuffix">A string that represent token suffix. Must be non-empty string.</param>
+            <param name="tokens">A collection of tokens.</param>
+            <param name="escapeFunction">A function that transforms a token value before putting it into the resulting string.</param>
+            <param name="replacedAll">When this method returns, contains true if all tokens were replaced; false otherwise.</param>
+            <returns>A string with each token replaced by its value.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ReplaceTokens(System.String,System.String,System.String,System.Func{System.String,System.String},System.Boolean@)">
+            <summary>
+            Replaces the name of each token embedded in the specified string with the string equivalent of the value of the token, then returns the resulting string.
+            </summary>
+            <param name="text">A string containing the name of zero or more resources. Each resource is quoted with ## characters.</param>
+            <param name="tokenPrefix">A string that represent token prefix. Must be non-empty string.</param>
+            <param name="tokenSuffix">A string that represent token suffix. Must be non-empty string.</param>
+            <param name="tokenProvider">A callback method that is used to calculate token value. If the method cannot calculate the token value, it must return null.</param>
+            <param name="replacedAll">When this method returns, contains true if all tokens were replaced; false otherwise.</param>
+            <returns>A string with each token replaced by its value.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.CountSubstrings(System.String,System.String)">
+            <summary>
+            Counts the number of times substring is found in value
+            </summary>
+            <param name="value">The string to search within</param>
+            <param name="substring">The substring to search for</param>
+            <returns>The number of occurances of substring within value</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ConvertToHex(System.Byte[])">
+            <summary>
+            converts a byte array to a hex string suitable for use as a varbinary in a SQL query
+            </summary>
+            <param name="byteArray">The byte array</param>
+            <returns>The encoded hex string, starting with '0x'</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ConvertFromHexString(System.String)">
+            <summary>
+            converts the string representation of a SQL varbinary to a byte array
+            </summary>
+            <param name="hexString">A hex string starting with '0x'</param>
+            <returns>The decoded byte array</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.StringUtil.ToQuotedStringList``1(System.Collections.Generic.IEnumerable{``0},System.Char)">
+            <summary>
+            Returns a list of quoted strings, i.e.
+            for an input such as string[] { "a", 21, "foo" } the returned string will be "'a', '21', 'foo'"
+            </summary>
+            <param name="values">values to quote</param>
+            <param name="quoteCharacter">Character used to quote, '\'' by default</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.#cctor">
+            Creates the resource manager instance.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.Get(System.String)">
+            Returns a localized string given a resource string name.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.Format(System.String,System.Object[])">
+            A little helper function to alleviate some typing associated with loading resources and
+            formatting the strings.  In DEBUG builds, it also asserts that the number of format
+            arguments and the length of args match.
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AccessToPathDenied(System.Object)">
+            <summary>
+            Access to the path &apos;{0}&apos; is denied.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AssertionFailureHeader">
+            <summary>
+            Debug Assertion
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CannotDeleteDirectoryWithWritableFile(System.Object)">
+            <summary>
+            The directory {0} cannot be deleted because it contains at least one writable file.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CannotDeleteDirectoryWithContents(System.Object)">
+            <summary>
+            The directory {0} cannot be deleted because it is not empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.Category(System.Object)">
+            <summary>
+            Category: {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CommandFailedWithExitCode(System.Object,System.Object)">
+            <summary>
+            The program {0} failed with exit code {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EmptyStringNotAllowed">
+            <summary>
+            The string must have at least one character.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EmptyGuidNotAllowed(System.Object)">
+            <summary>
+            The guid specified for parameter {0} must not be Guid.Empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.Exception">
+            <summary>
+            Exception: 
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ExceptionDataDictionaryReport(System.Object,System.Object)">
+            <summary>
+            {0} = {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ExceptionReport(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            {0}Date (UTC): {1}Machine: {2}Application Domain: {3}Assembly: {4}Service Host: {5}Process Details:  Process Name: {6}  Process Id: {7}  Thread Id: {8}  Account name: {9}Detailed Message: {10}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ExceptionReportNoDetails(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            {0}Date (UTC): {1}Machine: {2}Application Domain: {3}Assembly: {4}Service Host: {5}Process Details:  Process Name: {6}  Process Id: {7}  Thread Id: {8}  Account name: {9}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ExceptionSource">
+            <summary>
+            Team Foundation
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ExceptionStackTrace(System.Object)">
+            <summary>
+            Exception Stack Trace: {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FileInUse(System.Object)">
+            <summary>
+            The process cannot access the file &apos;{0}&apos; because it is being used by another process.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FoundDirectoryExpectedFilePath(System.Object)">
+            <summary>
+            {0} could not be retrieved because a directory by the same name exists locally.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.HeadersAndContentsDontMatch(System.Object,System.Object)">
+            <summary>
+            headers length ({0}) and number of contents columns ({1}) must match
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.HttpStatusInfo(System.Object,System.Object)">
+            <summary>
+            HTTP code {0}: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.IdentityNotFoundException(System.Object)">
+            <summary>
+            TF14045: The identity {0} is not a recognized identity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InnerException">
+            <summary>
+            Inner Exception Details:
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidComputerName(System.Object)">
+            <summary>
+            TF10203: The computer name &apos;{0}&apos; is not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidComputerNameTooLong(System.Object,System.Object)">
+            <summary>
+            TF10204: The computer name &apos;{0}&apos; contains more than {1} characters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidComputerNameInvalidCharacters(System.Object)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidEnumerationValue(System.Object,System.Object)">
+            <summary>
+            Unknown value {0} for enumeration {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPath(System.Object)">
+            <summary>
+            TF10121: The path &apos;{0}&apos; is not found or not supported. Type or select a different path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPathDollarSign(System.Object)">
+            <summary>
+            TF10122: The path &apos;{0}&apos; contains a &apos;$&apos; at the beginning of a path component. Remove the &apos;$&apos; and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPathTooLong(System.Object)">
+            <summary>
+            TF205022: The following path contains more than the allowed 259 characters: {0}. Specify a shorter path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidServerPathTooLong(System.Object)">
+            <summary>
+            TF400889: The following path contains more than the allowed 259 characters: {0}. Specify a shorter path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPathTooLongVariable(System.Object,System.Object)">
+            <summary>
+            TF205023: The following path is not valid: {0}. The path contains the following number of characters: {1}. Specify a shorter path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPathInvalidChar(System.Object,System.Object)">
+            <summary>
+            TF10123: The path &apos;{0}&apos; contains the character &apos;{1}&apos;. Remove the &apos;{1}&apos; and try again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPathInvalidCharacters(System.Object)">
+            <summary>
+            TF10200: The path &apos;{0}&apos; contains one or more characters which are not allowed. Characters which are not allowed include &apos;&quot;&apos;, &apos;/&apos;, &apos;:&apos;, &apos;&lt;&apos;, &apos;&gt;&apos;, &apos;\&apos;, and &apos;|&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPathInvalidCharactersAndWildcards(System.Object)">
+            <summary>
+            TF205000: The path &apos;{0}&apos; contains one or more characters which are not allowed. Characters which are not allowed include &apos;&quot;&apos;, &apos;/&apos;, &apos;:&apos;, &apos;&lt;&apos;, &apos;&gt;&apos;, &apos;\&apos;, &apos;|&apos;, &apos;?&apos;, and &apos;*&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPathTermination(System.Object)">
+            <summary>
+            TF10202: The path &apos;{0}&apos; ends with a character which is not allowed. Characters which are not allowed include &apos;.&apos; and &apos; &apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidServerResponse(System.Object)">
+            <summary>
+            Please contact your administrator. There was an error contacting the server.Technical information (for administrator):  {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidTraceFile(System.Object,System.Object)">
+            <summary>
+            TF30048: The file {0} specified to store the trace output could not be found or created. Confirm that the file name is correct and that your user account has permission to access the file: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidUserName(System.Object)">
+            <summary>
+            TF10132: {0} is not a supported user name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ListenerInitializeError(System.Object)">
+            <summary>
+            TF30049: Team Foundation Server encountered an error initializing listener {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.LogExceptionHeader(System.Object,System.Object)">
+            <summary>
+            Exception Message: {0} (type {1})
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.LogExceptionDataDictionary(System.Object)">
+            <summary>
+            Exception Data Dictionary:{0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.Method(System.Object)">
+            <summary>
+            Method: {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AColonB(System.Object,System.Object)">
+            <summary>
+            {0}: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PathIsNotADirectory(System.Object)">
+            <summary>
+            The path {0} is not a directory.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.StackFrameHeader(System.Object,System.Object)">
+            <summary>
+            at {0}.{1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.StackFrameLineFormat(System.Object,System.Object)">
+            <summary>
+            {0} (line {1})
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SqlExceptionError(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            SQL Error[{0}]: {1}    Class: {2}    Number: {3}    Server: {4}    Source: {5}    State: {6}    Procedure: {7}    Line Number: {8}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SqlExceptionReport(System.Object,System.Object,System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            SQL Exception Class: {0}SQL Exception Number: {1}SQL Exception Procedure: {2}SQL Exception Line Number: {3}SQL Exception Server: {4}SQL Exception State: {5}SQL Error(s):{6}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SoapExceptionReport(System.Object)">
+            <summary>
+            SoapException Details: {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WebExceptionReport(System.Object,System.Object,System.Object)">
+            <summary>
+            Status: {0}Response Status Code: {1}Response Status Message: {2}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WebExceptionReport_ResponseDisposed(System.Object)">
+            <summary>
+            Status : {0}Response already disposed, no additional information available.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.StringLengthExceedsLimit">
+            <summary>
+            The String length exceeds maximum limit.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.StringPatternDidNotMatch(System.Object)">
+            <summary>
+            The String pattern did not match: {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TraceSettingArgumentException(System.Object)">
+            <summary>
+            TF30061: The trace switch {0} is not a valid Team Foundation Server trace switch.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TraceStartMessage(System.Object,System.Object)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TraceStopMessage(System.Object,System.Object)">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TraceToggleException">
+            <summary>
+            TF30062: An error occurred while manipulating the trace state of the application
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.Unauthorized(System.Object)">
+            <summary>
+            TF30063: You are not authorized to access {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnableToContactService">
+            <summary>
+            TF53016: Unable to contact the web service; examine the event log for other correlating entries.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnableToRunApp(System.Object)">
+            <summary>
+            The application &quot;{0}&quot; could not be executed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnableToRetrieveRegistrationInfo(System.Object)">
+            <summary>
+            Unable to retrieve the registration information for &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnauthorizedUnknownServer">
+            <summary>
+            TF30064: You are not authorized to access the server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UserNameAndPasswordRequiredForLoginTypeOAuth">
+            <summary>
+            Both a username and password must be explicitly provided when using /logintype:oauth.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UserNameAndPasswordRequiredForLoginTypeServiceIdentity">
+            <summary>
+            Both a username and password must be explicitly provided when using /logintype:serviceidentity.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonMainPleaRegular">
+            <summary>
+            We have created an error report that you can send to help us fix bugs. We will treat this report as confidential and anonymous.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonMainIntroBold">
+            <summary>
+            TF30069: An unexpected condition has occurred.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonMainIntroRegular">
+            <summary>
+            TF30070: An unexpected condition has occurred in the Team Foundation server. Information about the condition has been gathered.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonMainPleaBold">
+            <summary>
+            Please tell Microsoft about this problem.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonEventDescription(System.Object)">
+            <summary>
+            TF30068: An exception has occurred in a Team Foundation component: {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonReportBeingPrepared">
+            <summary>
+            TF53012: A crash report is being prepared for Microsoft using the Watson Crash Reporting Mechanism. The prepared report will be queued when ready and may be sent to Microsoft through administrator control.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonReportException">
+            <summary>
+            TF30071: Unable to create and file a Watson report.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonReportInformation(System.Object)">
+            <summary>
+            TF53013: A crash report is being prepared for Microsoft. The following information is included in that report:{0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonReportNotFiled(System.Object)">
+            <summary>
+            TF53014: A crash report for this problem was recently created; a new crash report for this occurrence of the problem is not being created. This problem has occurred {0} times.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WatsonReportReady">
+            <summary>
+            TF53015: A crash report has been prepared for Microsoft using the Watson Crash Reporting Mechanism. The prepared report has been queued and may be sent to Microsoft through administrator control.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WildcardsNotAllowed">
+            <summary>
+            Wildcards are not allowed.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.VersionCheckFailed(System.Object)">
+            <summary>
+            TF53000: The client version is not supported by the server {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.RegistrationDataUnavailable(System.Object)">
+            <summary>
+            TF53002: Unable to obtain registration data for application {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.VersionCheckFailedRange(System.Object,System.Object)">
+            <summary>
+            TF53003: The client version is not supported by the server {0}. Supported range is {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnsupportedLinkFilter(System.Object)">
+            <summary>
+            TF54001: An unsupported link filter type {0} was specified.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicesUnavailable(System.Object,System.Object)">
+            <summary>
+            TF400324: Team Foundation services are not available from server {0}.Technical information (for administrator):  {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicesUnavailableNoServer(System.Object)">
+            <summary>
+            TF400324: Team Foundation services are not available from the server.Technical information (for administrator):  {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DatabaseMissingErrorMessages(System.Object)">
+            <summary>
+            TF205005: One or more of the installed error messages for Team Foundation Server cannot be found. Either the SQL Server instance has not been configured to work with Team Foundation Server, or a configuration change has caused a conflict. In order to fix this problem, you must run the TFSConfig PrepSQL command on the SQL Server instance. Detailed error information: {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AccessCheckExceptionTokenFormat(System.Object,System.Object,System.Object)">
+            <summary>
+            Access Denied: {0} needs the following permission(s) on the resource {1} to perform this action: {2}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidOperationOnNonHierarchicalNamespace">
+            <summary>
+            TF205044: This function must be called on a hierarchical security namespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidSecurityNamespaceGuid(System.Object)">
+            <summary>
+            TF205045: No security namespace exists with the following ID: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ReadOnlySecurityCollectionExceptionMessage">
+            <summary>
+            Invalid attempt to write to collection, it is read only.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidTokenSplitType">
+            <summary>
+            A split cannot be performed on a resource that has a SecurityTokenSplitType of NoSplit.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SecurityIdentityNotFoundMessage(System.Object)">
+            <summary>
+            The guid {0} that was provided to the security system was not found.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServiceForFilterNotFoundWithIdentifier(System.Object,System.Object)">
+            <summary>
+            TF205041: No services exist with the specified type and identifier. Type: {0}. Identifier: {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.OperationNotSupportedMessage(System.Object,System.Object)">
+            <summary>
+            The function: &apos;{0}&apos; within the service: &apos;{1}&apos;  is not supported by the server this client is talking to.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ErrorReadingFile(System.Object,System.Object)">
+            <summary>
+            Error reading file: {0} ({1}).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DuplicateLocationMappingMessage">
+            <summary>
+            Only one location mapping can exist on a service definition for a given access mapping.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidServiceTypeOnRegister(System.Object)">
+            <summary>
+            TF205036: A service cannot be registered with the following service type: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServiceForFilterNotFound(System.Object)">
+            <summary>
+            TF205040: No services exist with the following type: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidServiceDefinitionMissingMapping(System.Object,System.Object)">
+            <summary>
+            The service definition for service {0} is missing the location of the service for the access mapping {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidFullyQualifiedServiceDefinition(System.Object)">
+            <summary>
+            TF205043: A service definition exists with the following RelativeToSetting value: {0}. Any service definition that has this RelativeToSetting value must have its RelativePath property value set to null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidRelativeServiceDefinition(System.Object)">
+            <summary>
+            A service definition with a RelativeToSetting of &apos;{0}&apos; must have a RelativePath property that is not null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidIdentifierOnUpdate">
+            <summary>
+            When updating a service definition, make sure the identifier is properly set. The best way to do this is to retrieve the existing IServiceDefinition from the client object model.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidLocationServiceUrlRelativePath(System.Object,System.Object)">
+            <summary>
+            The location service url &apos;{0}&apos; is invalid. The location service url passed in must end with &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidSecurityNamespaceDescriptionMessage">
+            <summary>
+            For a hierarchical security namespace, either the separator character or the element length must be set and the other one must be the invalid value (&apos;\0&apos; for the separator character and -1 for the element length).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AccessMappingAlreadyRegistered(System.Object)">
+            <summary>
+            TF205033: The &quot;AccessMapping&quot; class has a value for the &quot;Moniker&quot; property that is not valid. The value for &quot;Moniker&quot; must be unique, but another property already has the following value: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.XmlNodeMissing(System.Object,System.Object)">
+            <summary>
+            The mandatory xml node &apos;{0}&apos; is missing under &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.XmlNodeEmpty(System.Object,System.Object)">
+            <summary>
+            The xml node &apos;{0}&apos; under node &apos;{1}&apos; cannot be empty
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AccessMappingNotRegistered(System.Object)">
+            <summary>
+            TF205034: The &quot;AccessMapping&quot; class has an unregistered value for the &quot;Moniker&quot; property. The following value has not been registered: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServiceDefinitionWithNoLocations(System.Object)">
+            <summary>
+            TF205046: The service with the following type does not have a location mapping: {0}. You must provide at least one location in order to configure locations for an external service.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FullyQualifiedLocationParameter">
+            <summary>
+            The value of the location parameter cannot be null if the RelativeToSetting is &apos;FullyQualified&apos;
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.RelativeLocationMappingErrorMessage">
+            <summary>
+            TF205038: You cannot add location mappings to service definitions that are not part of the FullyQualified type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.XmlAttributeEmpty(System.Object,System.Object)">
+            <summary>
+            The attribute &apos;{0}&apos; on node &apos;{1}&apos; cannot be empty
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.XmlAttributeNull(System.Object,System.Object)">
+            <summary>
+            The node &apos;{0}&apos; must only have the attribute &apos;{1}&apos;
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidServiceDefinitionToolId">
+            <summary>
+            The ToolId property for a service definition cannot be the empty string. To represent the service definition not having a tool id, pass null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ConfigFileException">
+            <summary>
+            The configuration file failed to load.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DuplicateRegistrationEntry(System.Object)">
+            <summary>
+            Duplicate registration entry in configuration file: {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.RegistrationEntryTypeMissing">
+            <summary>
+            Registration entry type missing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServiceInterfacesDepricated">
+            <summary>
+            Service Interfaces are no longer valid entries in Registration configuration files. Service Interfaces should be entered using the Location Service configuration files.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.XmlRootNodeMissing(System.Object)">
+            <summary>
+            The mandatory root node &apos;{0}&apos; is missing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CorruptRegistrationData(System.Object,System.Object)">
+            <summary>
+            The registry data near &apos;{0}&apos; appears to be invalid. An entry with a name of &apos;{1}&apos; was expected.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnableToRetrieveLocationInfo(System.Object)">
+            <summary>
+            Unable to retrieve the location service information for &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServiceDefinitionDoesNotExist(System.Object,System.Object)">
+            <summary>
+            The service definition with service type &apos;{0}&apos; and identifier &apos;{1}&apos; does not exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServiceDefinitionWithoutIdentifierDoesNotExist(System.Object)">
+            <summary>
+            TF205039: No service definition exists with the following service type: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidFindServiceByTypeAndToolId(System.Object,System.Object,System.Object)">
+            <summary>
+            TF205042: Two or more service definitions are in conflict. The specified parameters were found in the following number of service definitions: {2}. Service definitions must have unique parameters for the combination of ServiceType and ToolID in order to call this function. ServiceType: {0}. ToolID: {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidAccessMappingLocationServiceUrl">
+            <summary>
+            TF205035: The access mapping is not valid and cannot be registered. The location service URL cannot be null or empty.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SingletonServiceDefinitionViolation(System.Object)">
+            <summary>
+            The service definition with type &apos;{0}&apos; could not be registered because it would violate the singleton service definition constraint. Either a singleton service definition of this type is already registered or this is a singleton definition and other service definitions of this type are already registered.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.LocationMappingDoesNotExist(System.Object,System.Object,System.Object)">
+            <summary>
+            TF205037: No location mapping exists with the specified parameters. You specified a location mapping with the following service type, service identifier, and moniker: {0}, {1}, {2}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.BAD_ACCOUNT_NAME(System.Object)">
+            <summary>
+            TF205024: The following account name is not valid: &apos;{0}&apos;. For more information about valid naming conventions for accounts, see the topic &quot;Naming Restrictions for Team Foundation Server&quot; on the Microsoft Web site (https://go.microsoft.com/fwlink/?LinkId=77936).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.BAD_DISPLAY_NAME(System.Object)">
+            <summary>
+            TF205025: The following display name is not valid: &apos;{0}&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.BAD_GROUP_NAME(System.Object)">
+            <summary>
+            TF50241: The following Team Foundation group name is not valid: &apos;{0}&apos;. For more information about valid naming conventions for Team Foundation groups, see the topic &quot;Naming Restrictions for Team Foundation Server&quot; on the Microsoft Web site (https://go.microsoft.com/fwlink/?LinkId=77936).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.BAD_GROUP_DESCRIPTION(System.Object)">
+            <summary>
+            TF50250: Invalid group description (&apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.BAD_SID(System.Object,System.Object)">
+            <summary>
+            TF50360: Argument {1} contains an invalid SID (&apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CannotCreateOrphanedResource">
+            <summary>
+            TF205026: One or more resources that you specified cannot be created. All resources must be referenced by at least one node. In order to create a new resource, make sure that it is attached to a node that is either being created or being updated.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CatalogNodeDoesNotExist">
+            <summary>
+            TF205027: The catalog node that you specified either does not exist, or you do not have sufficient permissions to access it.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CatalogResourceDoesNotExist(System.Object)">
+            <summary>
+            TF205028: An error occurred when attempting to access the catalog resource with the following name: {0}. Either the resource does not exist, or you do not have sufficient permissions to access it.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CatalogResourceTypeDoesNotExist(System.Object)">
+            <summary>
+            TF205029: No catalog resource type exists with the following identifier: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidUnicodeCharacter(System.Object)">
+            <summary>
+            TF20507: The string argument contains a character that is not valid: U+{0:X4}. Correct the argument, and then try the operation again.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PropertyArgumentExceededMaximumSizeAllowed(System.Object,System.Object)">
+            <summary>
+            TF20508: The argument &apos;{0}&apos; is too long. It must not contain more than &apos;{1}&apos; characters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPropertyValueSize(System.Object,System.Object,System.Object)">
+            <summary>
+            TF20509: The value of property &apos;{0}&apos; exceeds the maximum size allowed. &apos;{1}&apos; values must not exceed &apos;{2}&apos; bytes.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PropertyInvalidVersionSpecification(System.Object)">
+            <summary>
+            TF20510: The following version specification is not valid: &apos;{0}&apos;. You must specify a valid version.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnsupportedPropertyType(System.Object)">
+            <summary>
+            TF20511: The property type &apos;{0}&apos; is not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.MultipleExtensionNames">
+            <summary>
+            Warning: Team Foundation Extension has multiple ExtensionName attributes. Using full class name as extension name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ExtensionNameNullOrEmpty">
+            <summary>
+            Warning: Extension name is null or empty. Using full class name as extension name.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DuplicateExtensionNameError(System.Object,System.Object,System.Object)">
+            <summary>
+            Extension name {0} is used by type {1} and {2}. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnsupportedPropertyValue(System.Object,System.Object,System.Object)">
+            <summary>
+            Property &apos;{0}&apos; value &apos;{1}&apos; of type &apos;{2}&apos; is not supported by Team Foundation Properties.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SharePointServiceAccountsGroupDescription">
+            <summary>
+            This application group should only contain service accounts for SharePoint Web applications.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FailedToMapPropertyKindToArtifactKind(System.Object)">
+            <summary>
+            Could not find the artifact type for property kind &apos;{0}&apos;. The property kind was not properly defined.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SharePointServiceAccountsGroupName">
+            <summary>
+            SharePoint Web Application Services
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.IllegalIdentityException(System.Object)">
+            <summary>
+            TF10158: The user or group name {0} contains unsupported characters, is empty, or too long.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.Ellipsis(System.Object)">
+            <summary>
+            {0}...
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SparseTreeTokenAlreadyExists">
+            <summary>
+            A node with the same token already exists in the SparseTree.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SparseTreeNoEmptyStringToken">
+            <summary>
+            Empty string tokens are not supported with a fixed element length.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidCatalogNodePathAllowWildcard(System.Object)">
+            <summary>
+            TF205030: The following catalog node path is not valid: {0}. Catalog node paths must be built from base-64 encoded Guids, cannot exceed 37 levels, and can contain only the wildcards *, **, and … at the end of the path.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidCatalogNodePathNoWildcard(System.Object)">
+            <summary>
+            TF205031: The following catalog node path is not valid: {0}. Catalog node paths must be built from base-64 encoded Guids, cannot exceed 37 levels, and cannot contain wildcards.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingStepNotExecuted(System.Object,System.Object,System.Object)">
+            <summary>
+            Servicing step &apos;{0}&apos; is not executed. (ServicingOperation: &apos;{1}&apos;; Step group: &apos;{2}&apos;)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ExecutingServicingStep(System.Object,System.Object,System.Object)">
+            <summary>
+            Executing servicing step &apos;{0}&apos;. (ServicingOperation: {1}; Step group: {2})
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingStepFailed(System.Object,System.Object,System.Object)">
+            <summary>
+            Servicing step &apos;{0}&apos; failed. (ServicingOperation: &apos;{1}&apos;; Step group: &apos;{2}&apos;)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingStepPassed(System.Object,System.Object,System.Object)">
+            <summary>
+            Servicing step &apos;{0}&apos; passed. (ServicingOperation: &apos;{1}&apos;; Step group: &apos;{2}&apos;)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingStepPassedWithWarnings(System.Object,System.Object,System.Object)">
+            <summary>
+            Servicing step &apos;{0}&apos; passed, with warnings. (ServicingOperation: &apos;{1}&apos;; Step group: &apos;{2}&apos;)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingStepPassedWithSkipChildren(System.Object,System.Object,System.Object)">
+            <summary>
+            Servicing step &apos;{0}&apos; passed, and marked its children steps to be skipped. (ServicingOperation: &apos;{1}&apos;; Step group: &apos;{2}&apos;)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingStepStateChange(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Servicing step &apos;{0}&apos; state changed to &apos;{1}&apos;. (ServicingOperation: &apos;{2}&apos;; Step group: &apos;{3}&apos;)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingStepValidated(System.Object,System.Object,System.Object)">
+            <summary>
+            Servicing step &apos;{0}&apos; was validated. (ServicingOperation: &apos;{1}&apos;; Step group: &apos;{2}&apos;)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingStepValidatedWithWarnings(System.Object,System.Object,System.Object)">
+            <summary>
+            Servicing step &apos;{0}&apos; was validated, with warnings. (ServicingOperation: &apos;{1}&apos;; Step group: &apos;{2}&apos;)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ValidatingServicingStep(System.Object,System.Object,System.Object)">
+            <summary>
+            Validating servicing step {0}. (ServicingOperation: {1}; Step group: {2})
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingStepSkipped(System.Object,System.Object,System.Object)">
+            <summary>
+            Servicing step &apos;{0}&apos; skipped. (ServicingOperation: &apos;{1}&apos;; Step group: &apos;{2}&apos;)
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CollectionDoesNotExist(System.Object)">
+            <summary>
+            The collection with id &apos;{0}&apos; does not exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidRegistryValue(System.Object,System.Object)">
+            <summary>
+            The type converter for type {0} must support conversion from the source type to {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GlobalSecurityAdministerConfigurationPermission">
+            <summary>
+            Administer Configuration
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AccessCheckExceptionPrivilegeFormat(System.Object,System.Object)">
+            <summary>
+            Access Denied: {0} needs the following permission(s) to perform this action: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.SharePointServiceAccountsGroupNotFound(System.Object)">
+             <summary>
+             {0} will be filled in with the value from CommonResources.SharePointServiceAccountsGroupName
+            
+             TF249022: The following group could not be found: {0}. Verify that the group name is correct.
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FailedToAddSharePointServiceAccount(System.Object,System.Object)">
+            <summary>
+            TF205015: Required permissions could not be granted to the service account for the SharePoint Web application in Team Foundation Server. The service account is for the following SharePoint Web application: {0}. Open the Team Foundation Administration Console and make sure that the service account is a member of the following group: {1}. If necessary, manually add the service account to that group.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FailedToAddSharePointServiceAccountWithException(System.Object,System.Object,System.Object)">
+            <summary>
+            TF205016: Required permissions could not be granted to the service account for the SharePoint Web application in Team Foundation Server. The following error occurred: {2}. The service account is for the following SharePoint Web application: {0}. Open the Team Foundation Administration Console and make sure that the service account is a member of the following group: {1}. If necessary, manually add the service account to that group. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FailedToMapWssBackToTfsWithException(System.Object,System.Object)">
+            <summary>
+            TF205018: An error occurred when attempting to save the mapping from the SharePoint Web application to Team Foundation Server. The SharePoint Web application is: {0}. The error is: {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FailedToAutoConfigureSharePointWebApplication(System.Object,System.Object)">
+            <summary>
+            TF205019: An error occurred when attempting to automatically configure the following resource: {0}. The error is: {1}. 
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPathMissingRoot(System.Object)">
+            <summary>
+            The path &apos;{0}&apos; must start with $/.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TeamSystemWebAccessUrlIsMissing(System.Object)">
+            <summary>
+            &apos;{0}&apos; is missing. Please verify that Team Web Access is configured correctly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ApplicationUrlIsNotInitialized">
+            <summary>
+            ApplicationUrl is not initialized.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CollectionIdIsNotInitialized">
+            <summary>
+            CollectionId is not initialized.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkEventingServiceDescription">
+            <summary>
+            Event Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkIdentityServiceDescription">
+            <summary>
+            Identity Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkIdentityService2Description">
+            <summary>
+            Identity Service Version 2 for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkJobServiceDescription">
+            <summary>
+            Job Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkLocationServiceDescription">
+            <summary>
+            Location Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkMessageQueueServiceDescription">
+            <summary>
+            Message Queue Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkPropertyServiceDescription">
+            <summary>
+            Property Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkRegistryServiceDescription">
+            <summary>
+            Registry Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkSecurityServiceDescription">
+            <summary>
+            Security Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkMethodologyServiceDescription">
+            <summary>
+            Methodology Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkMethodologyUploadServiceDescription">
+            <summary>
+            Methodology Upload Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkProcessTemplateServiceDescription">
+            <summary>
+            Process Template Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkStrongBoxServiceDescription">
+            <summary>
+            StrongBox Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkStrongBoxFileUploadServiceDescription">
+            <summary>
+            StrongBox File Upload Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkStrongBoxFileDownloadServiceDescription">
+            <summary>
+            StrongBox File Download Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CatalogServiceDescriptrion">
+            <summary>
+            Catalog Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CollectionManagementServiceDescription">
+            <summary>
+            Team Project Collection Management Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkAdministrationServiceDescription">
+            <summary>
+            Administration Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServicingResourceUploadServiceDescription">
+            <summary>
+            Servicing Resource Upload Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkAccessControlServiceDescription">
+            <summary>
+            Access Control Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AccessMappingIsDefaultMessage(System.Object)">
+            <summary>
+            TF205032: You cannot delete the following access mapping: {0}. This mapping is the default access mapping. To delete it, you must first specify another access mapping as the default.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FailedToAutoActivateSharePointWebApplicationFeature(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            TF205021: A feature could not be activated in the following Web application: {0}. The feature is {1}. This feature is part of the following solution: {2}. Without this feature, project dashboards will not function correctly. Verify that the solution has been deployed to the SharePoint farm, and that the feature has been activated in SharePoint Central Administration. The server returned the following error: {3}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NullArtifactUrlInUrlList">
+            <summary>
+            A null artifact url was found in the url list. Do not pass in a null artifact url.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WorkItemOnlyViewUsersGroupName">
+            <summary>
+            Work Item Only View Users
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WorkItemOnlyViewUsersGroupDescription">
+            <summary>
+            Members of this group can only use the Work Item Only View feature in Web Access.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CannotDetachFailedInitializeCollection(System.Object)">
+            <summary>
+            TF205047: You cannot detach this team project collection because it has at least one failed servicing operation of the following type: {0}. The operation must be completed before the collection can be detached. You can also choose to delete this collection using the &apos;TfsConfig.exe collection&apos; command.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FailureGetArtifactWithTool(System.Object)">
+            <summary>
+            Unable to get artifacts from tool: {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.MemoryCacheListKeyAlreadyPresent">
+            <summary>
+            TF205049: The key that you supplied is already present in MemoryCacheList.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnableToEstablishConnection">
+            <summary>
+            Unable to establish a connection with the Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_AccessZoneNotFound(System.Object)">
+            <summary>
+            TF249003: The following access mapping was not found: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_AdministratorsMessage(System.Object)">
+            <summary>
+            Administrators: For more information about how to configure or enable this option, see the {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_CollectionOrganizationalNodeNotFound">
+            <summary>
+            TF249006: The organizational node for the project collection could not be found.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_DefaultSiteCreationLocationNotConfigured">
+            <summary>
+            No default location for site creation has been configured for this project collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_DefaultSiteCreationLocationNotConfiguredSubTitle">
+            <summary>
+            Your server administrator has not configured a default location for site creation for this project collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_DefaultZoneRequiresAllPaths(System.Object,System.Object)">
+            <summary>
+            TF249007: The default zone must have paths specified for the following parameters: {0}, {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_HelpLink">
+            <summary>
+            Microsoft Web Site
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_NoUriForCurrentZone(System.Object)">
+            <summary>
+            TF249046: The URL could not be resolved for the following service: {0}. Service zone and location information might not be configured for your current location, or the configuration might contain errors. An administrator for Team Foundation Server must create and verify the settings for the service zone.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_PortalOwnerInfo(System.Object,System.Object)">
+             <summary>
+             This is inserted into the {0} spot in EntityModel_TakeSiteOwnershipConfirmation
+            
+             Project Portal for the &apos;{0}&apos; Project in the &apos;{1}&apos; Project Collection
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_PortalSiteNotConfigured">
+            <summary>
+            No team project portal has been configured for this project.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_PortalSiteNotConfiguredSubTitle">
+            <summary>
+            Your project administrator has not configured a portal for this team project.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ProcessGuidanceNotConfigured">
+            <summary>
+            No process guidance has been configured for this project.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ProcessGuidanceNotConfiguredSubTitle">
+            <summary>
+            Your project administrator has not configured process guidance for this team project.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ProjectIdNotFound(System.Object)">
+            <summary>
+            TF249013: No team project could be found in the catalog with the following ID: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ProjectUriNotFound(System.Object)">
+            <summary>
+            TF249040: The catalog does not contain a team project with the following URL: {0}. Verify that the specified URL is correct.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ReadOnly">
+            <summary>
+            TF249015: The object could not be updated because it is read-only.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ReportingCubeInvalid">
+            <summary>
+            TF249016: Reports could not be configured for the server. The Visual Studio Team System cube does not point to the data warehouse already specified for SQL Server Reporting Services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ReportingNotConfigured">
+            <summary>
+            Reports have not been enabled for this project collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ReportingNotConfiguredSubTitle">
+            <summary>
+            Your server administrator has not enabled reports for this project collection.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ServiceDefinitionNotFound(System.Object)">
+            <summary>
+            TF249019: The following service definition was not found: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_WebAccessNotConfigured">
+            <summary>
+            Team Web Access has not been enabled.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_WebAccessNotConfiguredSubTitle">
+            <summary>
+            Your server administrator has not enabled Web access to this server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_BadBooleanFormat">
+            <summary>
+            TF205050: The Boolean value is not formatted correctly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_BadEnumFormat">
+            <summary>
+            TF205051: The enumeration value is not valid. It is either not formatted correctly or it has an unknown enumeration value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_BadGuidFormat">
+            <summary>
+            TF205052: The GUID value is not formatted correctly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_BadInt32Format">
+            <summary>
+            TF205053: The Int32 value is not formatted correctly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_DataDefinesUnsupportedSchema">
+            <summary>
+            TF205054: The data defines an unsupported schema.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_DataDoesNotDefineSchema">
+            <summary>
+            TF205055: The data does not define a schema.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_IncompatibleType">
+            <summary>
+            TF205056: The item is not a compatible type.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_InvalidInstanceId">
+            <summary>
+            TF205057: The instance ID is not valid.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_InvalidObjectRefValue_BadFormat">
+            <summary>
+            TF205058: The object reference value is not formatted correctly.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_InvalidObjectRefValue_BadIdentifier">
+            <summary>
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_InvalidObjectRefValue_UnknownIdentifier">
+            <summary>
+            TF205060: The object reference value is not valid. No such identifier exists.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_MustDeriveFromTfsObject">
+            <summary>
+            TF205061: The type must be inherited from the TfsObject class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_SessionMissing">
+            <summary>
+            TF205062: The object is not bound to a session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_TooManyFieldValues">
+            <summary>
+            TF205063: The object has more field values than are allowed within the specified schema.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_UnknownType(System.Object)">
+            <summary>
+            TF205064: The following type is not known: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_AlreadyBoundToAnotherSession">
+            <summary>
+            TF205065: The object is already bound to another session.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_AlreadyHasParent">
+            <summary>
+            TF205066: The value already has a parent. You can only set a parent on a new item.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_CannotResolveUriWithoutSession">
+            <summary>
+            TF205067: The object is not bound to a session. The location service is not available to resolve the URL.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_FieldFiltersNotSupported">
+            <summary>
+            TF205068: Field filters are not supported when querying the hierarchy in the catalog.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_ParentCannotChange">
+            <summary>
+            TF205069: The parent cannot be changed once it is set.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_RefreshNotAvailable">
+            <summary>
+            TF205070: The object is not bound to a session. Refresh is not available.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_SecurityNamespaceNotAvailable">
+            <summary>
+            TF205071: The security namespace is not available within the current context.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.EntityModel_UnsupportedDerivedType">
+            <summary>
+            TF205072: The data type for the server object is not supported.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.WebAccess_UnSupportedArtifactType(System.Object)">
+            <summary>
+            Unsupported artifact type: {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidAsynchronousOperationParameter(System.Object)">
+            <summary>
+            Invalid asynchronous operation specified for parameter {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DequeueTimeout(System.Object)">
+            <summary>
+            The asynchronous dequeue operation timed out after {0}. This timeout may be a portion of a larger timeout.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TeamByIdDoesNotExist(System.Object)">
+            <summary>
+            TF400461: TeamFoundation Team with Id {0} does not exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TeamByNameDoesNotExist(System.Object)">
+            <summary>
+            TF400460: TeamFoundation Team with Name {0} does not exist.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkIdentityManagementWebDescription">
+            <summary>
+            Identity Management Web Page for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkFileHandlerServiceDescription">
+            <summary>
+            File Handler Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkDownloadServiceDescription">
+            <summary>
+            Download Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkSecurityManagementWebDescription">
+            <summary>
+            Security Management Web Page for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ProjectCollectionContributorsGroupName">
+            <summary>
+            Project Collection Contributors
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ProjectCollectionContributorsGroupDesc">
+            <summary>
+            Members of this group can connect to the collection, view its information and create workspaces in version control
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PublicAccessMappingDisplayName">
+            <summary>
+            Public Access Mapping
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServerAccessMappingDisplayName">
+            <summary>
+            Server Access Mapping
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AlternateAccessMappingDisplayName">
+            <summary>
+            Alternate Public Access Mapping
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TextLoggerInfoLine(System.Object)">
+            <summary>
+            [Info] {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TextLoggerWarningLine(System.Object)">
+            <summary>
+            [Warn] {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TextLoggerErrorLine(System.Object)">
+            <summary>
+            [Error] {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.IdentityPropertyReadOnly(System.Object)">
+            <summary>
+            {0} is a read-only identity property
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServerIncompatible(System.Object)">
+            <summary>
+            TF205073: The Team Foundation client cannot connect to the following server: {0}. You must connect to Team Foundation Server 2008 or a later version.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPropertyScope">
+            <summary>
+            Invalid IdentityPropertyScope for requested operation.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidStringPropertyValueNullAllowed(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            &quot;{0}&quot; is an invalid value for the {1} of a {2}. The text must be null or between {3} and {4} characters long.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidStringPropertyValueNullForbidden(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            &quot;{0}&quot; is an invalid value for the {1} of a {2}. The text must be between {3} and {4} characters long and cannot be null.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ValueTypeOutOfRange(System.Object,System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            {0} is out of range for the {1} of a {2}. The value must be between {3} and {4}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PropertyValueOutOfRange(System.Object,System.Object,System.Object,System.Object)">
+            <summary>
+            Property &apos;{0}&apos; with value &apos;{1}&apos; is out of range for the Team Foundation Properties service. The value must be between {2} and {3}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnsupportedPropertyValueType(System.Object,System.Object)">
+            <summary>
+            Property &apos;{0}&apos; of type &apos;{1}&apos; is not supported by Team Foundation Properties. Convert the value to an Int32, DateTime, Double, String or Byte array for storage.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DoubleValueOutOfRange(System.Object,System.Object)">
+            <summary>
+            Property &apos;{0}&apos; with value &apos;{1}&apos; is out of range for the Team Foundation Properties service. Double values must be 0, within -1.79E+308 to -2.23E-308, or within 2.23E-308 to 1.79E+308.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeKindMustBeSpecified">
+            <summary>
+            The DateTimeKind (Local, UTC) must be specified for DateTime arguments.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoAMinute">
+            <summary>
+            a minute ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoLessThanMinute">
+             <summary>
+             Keep the translation short. The UI will break to a new line if long.
+            
+             just now
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoMinutes(System.Object)">
+            <summary>
+            {0} minutes ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoADay">
+            <summary>
+            a day ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoAMonth">
+            <summary>
+            a month ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoAnHour">
+            <summary>
+            an hour ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoAWeek">
+            <summary>
+            a week ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoAYear">
+            <summary>
+            a year ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoDays(System.Object)">
+            <summary>
+            {0} days ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoHours(System.Object)">
+            <summary>
+            {0} hours ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoMonths(System.Object)">
+            <summary>
+            {0} months ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoWeeks(System.Object)">
+            <summary>
+            {0} weeks ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.DateTimeAgoYears(System.Object)">
+            <summary>
+            {0} years ago
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TimeStampTodayAt(System.Object)">
+             <summary>
+              {0} is a short time. Example: 'Today at 12:23 PM'
+            
+             Today at {0}
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TimeStampYesterdayAt(System.Object)">
+             <summary>
+              {0} is a short time. Example: 'Yesterday at 12:23 PM'
+            
+             Yesterday at {0}
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TimeStampDayAt(System.Object,System.Object)">
+             <summary>
+              {0} is the day of week . {1} is a short time. Example: 'Monday at 12:23 PM'
+            
+             {0} at {1}
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.TimeStampFullDate(System.Object,System.Object)">
+             <summary>
+               {0} is the day of week. {1} is a date and time. Example: 'Monday, 10/06/2010, 12:23 PM'
+            
+             {0}, {1}
+             </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.UnauthorizedUserForReauthentication">
+            <summary>
+            TF400459: You are not allowed to change users when re-authenticating.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkAreasManagementWebDescription">
+            <summary>
+            Work Item Areas Management Web Page for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkIterationsManagementWebDescription">
+            <summary>
+            Work Item Iterations Management Web Page for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkNewTeamProjectWebDescription">
+            <summary>
+            New Team Project Web Page for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidPropertyName(System.Object)">
+            <summary>
+            TF400458: Invalid property name: &apos;{0}&apos;. Property names cannot contain leading or trailing whitespace.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PerformanceCounterCategoryNotRegistered(System.Object)">
+            <summary>
+            Perfromance counter category {0} has not been registered
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkProjectAlertsWebDescription">
+            <summary>
+            Project Alerts Web Page for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkTaskBoardWebDescription">
+            <summary>
+            Team Task board Web Page for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_ARGUMENT_EXCEPTION(System.Object)">
+            <summary>
+            TF50606: Argument {0} is invalid.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_ACCOUNT_NAME_ARRAY(System.Object)">
+            <summary>
+            TF50371: Argument {0} is zero length, there must be at least one account name element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_ACTIONID(System.Object,System.Object)">
+            <summary>
+            TF50369: Argument {1} contains an invalid action identifier (&apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_ACTIONID_ARRAY(System.Object)">
+            <summary>
+            TF50370: Argument {0} is zero length, there must be at least one action identifier element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_CLASSID_ACTIONID_PAIR_EXCEPTION(System.Object,System.Object)">
+            <summary>
+            TF50365: The combination of the class ID and the Action ID is not valid. Class ID: &apos;{0}&apos;. Action ID: &apos;{1}&apos;.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_DISTINGUISHED_NAME(System.Object)">
+            <summary>
+            TF50364: The following distinguished name (DN) is not formatted correctly or contains an empty string: &apos;{0}&apos;. Make sure that the formatting for the distinguished name is correct for LDAP API naming conventions. For more information, see the topic &quot;Distinguished Names&quot; on the Microsoft Web site (https://go.microsoft.com/fwlink/?LinkId=81167).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_DISTINGUISHED_NAME_ARRAY(System.Object)">
+            <summary>
+            TF50372: Argument {0} is zero length, there must be at least one distinguished name element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_OBJECTID(System.Object,System.Object)">
+            <summary>
+            TF50366: Argument {1} contains an invalid object identifier (&apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_OBJECTID_ARRAY(System.Object)">
+            <summary>
+            TF50367: Argument {0} is zero length, there must be at least one object identifier element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_OBJECT_CLASS_ID(System.Object,System.Object)">
+            <summary>
+            TF50368: Argument {1} contains an invalid object class identifier (&apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_PARENTOBJECTID_SELFPARENT(System.Object,System.Object)">
+            <summary>
+            TF50376: Argument {0} is invalid. Object (&apos;{1}&apos;) cannot inherit from itself.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_PROJECT_URI(System.Object,System.Object)">
+            <summary>
+            TF50362: Argument {1} contains an invalid project URI (&apos;{0}&apos;).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_PROJECT_URI_ARRAY(System.Object)">
+            <summary>
+            TF50373: Argument {0} is zero length, there must be at least one project URI element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.GSS_BAD_SID_ARRAY(System.Object)">
+            <summary>
+            TF50361: Argument {0} is zero length, there must be at least one SID element.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_CREATE_PROJECTS">
+            <summary>
+            Create new projects
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_DIAGNOSTIC_TRACE">
+            <summary>
+            Alter trace settings
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_GENERIC_READ">
+            <summary>
+            View collection-level information
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_GENERIC_WRITE">
+            <summary>
+            Edit collection-level information
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_MANAGE_LINK_TYPES">
+            <summary>
+            Manage work item link types
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_MANAGE_TEMPLATE">
+            <summary>
+            Manage process template
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_MANAGE_TEST_CONTROLLERS">
+            <summary>
+            Manage test controllers
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_SYNCHRONIZE_READ">
+            <summary>
+            View system synchronization information
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_TRIGGER_EVENT">
+            <summary>
+            Trigger events
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_ADMINISTER_BUILD">
+            <summary>
+            Administer a build
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_CHECK_IN">
+            <summary>
+            Check files in
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_DELETE">
+            <summary>
+            Delete team project
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_DELETE_TEST_RESULTS">
+            <summary>
+            Delete test runs
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_EDIT_BUILD_STATUS">
+            <summary>
+            Edit build quality
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_GENERIC_READ">
+            <summary>
+            View project-level information
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_GENERIC_WRITE">
+            <summary>
+            Edit project-level information
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_MANAGE_TEST_CONFIGURATIONS">
+            <summary>
+            Manage test configurations
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_MANAGE_TEST_ENVIRONMENTS">
+            <summary>
+            Manage test environments
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_OVERRIDE_BUILD_CHECKIN_VALIDATION">
+            <summary>
+            Override check-in validation by build
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_PUBLISH_TEST_RESULTS">
+            <summary>
+            Create test runs
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_START_BUILD">
+            <summary>
+            Start a build
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_UPDATE_BUILD">
+            <summary>
+            Write to build operational store
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_VIEW_TEST_RESULTS">
+            <summary>
+            View test runs
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.CannotResolveServerHostUsingAD(System.Object,System.Object)">
+            <summary>
+            TF255042: Cannot convert {0} to Windows NT 4.0 account name using directory services. Error code: {1}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.MultipleIdentitiesFoundMessage(System.Object,System.Object)">
+            <summary>
+            Multiple identities found matching &apos;{0}&apos;. Use the unique name to specify one of the following identities:{1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidServerRequest(System.Object)">
+            <summary>
+            The request was rejected by the server.Technical information:  {0}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkConnectedServicesServiceDescription">
+            <summary>
+            ConnectedServices Service for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_IllegalPrimitive(System.Object)">
+            <summary>
+            Invalid JSON primitive: {0}..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_DepthLimitExceeded">
+            <summary>
+            RecursionLimit exceeded..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_InvalidArrayStart">
+            <summary>
+            Invalid array passed in, &apos;[&apos; expected..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_InvalidArrayExpectComma">
+            <summary>
+            Invalid array passed in, &apos;,&apos; expected..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_InvalidArrayExtraComma">
+            <summary>
+            Invalid array passed in, extra trailing &apos;,&apos;..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_InvalidArrayEnd">
+            <summary>
+            Invalid array passed in, &apos;]&apos; expected..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_ExpectedOpenBrace">
+            <summary>
+            Invalid object passed in, &apos;{&apos; expected..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_InvalidMemberName">
+            <summary>
+            Invalid object passed in, member name expected..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_InvalidObject">
+            <summary>
+            Invalid object passed in, &apos;:&apos; or &apos;}&apos; expected..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_UnterminatedString">
+            <summary>
+            Unterminated string passed in..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_BadEscape">
+            <summary>
+            Unrecognized escape sequence..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.JavaScriptSerializer_JSON_StringNotQuoted">
+            <summary>
+            Invalid string passed in, &apos;\&quot;&apos; expected..
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkSignOutWebDescription">
+            <summary>
+            Sign-Out Web Page for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkFileContainerDescription">
+            <summary>
+            File Containers Resource for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidSqlTimestampString(System.Object)">
+            <summary>
+            String &apos;{0}&apos; is not a valid sql timestamp.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServiceChangeError(System.Object)">
+            <summary>
+            TF400749: Unable to change the service configuration for {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServiceControlManagerOpenError">
+            <summary>
+            TF400750: Unable to open the service control manager.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ServiceOpenError(System.Object)">
+            <summary>
+            TF400751: Unable to open the service configuration for {0}.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.BAD_ALIAS(System.Object)">
+            <summary>
+            The following alias is not valid: &apos;{0}&apos;. For more information about valid naming conventions, see the topic &quot;Naming Restrictions for Team Foundation Server&quot; on the Microsoft Web site (https://go.microsoft.com/fwlink/?LinkId=77936).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.BAD_ALIAS_NOT_ALPHANUM(System.Object)">
+            <summary>
+            The following alias is not valid: &apos;{0}&apos;. An alias can only contain letters and/or digits.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkRoomsHubWebDescription">
+            <summary>
+            Rooms hub Web Page for Visual Studio Team Foundation Server.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkUtilizationUsageSummaryDescription">
+            <summary>
+            Usage Web Page for Visual Studio Team Services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.FrameworkUtilizationUserUsageSummaryDescription">
+            <summary>
+            User-specific Usage Web Page for Visual Studio Team Services.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.LocationService">
+            <summary>
+            Location Service
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.AccountTenantExists">
+            <summary>
+            Account already belongs to a tenant.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidInheritLevelServiceDefinition(System.Object)">
+            <summary>
+            A service definition exists with the following InheritLevel value: {0}. Only deployment-level service definitions may specify an InheritLevel value.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidLocationMappingsServiceDefinition">
+            <summary>
+            Only deployment level service definitions may have location mappings.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidInheritLevelRelativeServiceDefinition(System.Object,System.Object)">
+            <summary>
+            A service definition with InheritLevel: {0} and RelativeToSetting value: {1} must define a parent service definition.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidGroupDescriptor(System.Object)">
+            <summary>
+            Group {0}`s descriptor is missing or doesn`t have a valid Identifier.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROCESS_PERMISSION_DELETE">
+            <summary>
+            Delete process
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROCESS_PERMISSION_EDIT">
+            <summary>
+            Edit process
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROCESS_PERMISSION_CREATE">
+            <summary>
+            Create process
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROCESS_PERMISSIONS_ADMINISTER">
+            <summary>
+            Administer process permissions
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_WORK_ITEM_DELETE">
+            <summary>
+            Delete and restore work items
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_WORK_ITEM_MOVE">
+            <summary>
+            Move work items out of this project
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_WORK_ITEM_PERMANENTLY_DELETE">
+            <summary>
+            Permanently delete work items
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.ErrorCreatingTempFile(System.Object)">
+            <summary>
+            Error creating temp file in &apos;{0}&apos;
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_RENAME">
+            <summary>
+            Rename team project
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.XML_SCHEMAVALIDATION_READSCHEMAFAILED">
+            <summary>
+            TF30254: Unable to read the schema from resources.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.XML_SCHEMAVALIDATION_FAILED(System.Object,System.Object)">
+            <summary>
+            Xml schema validation error in {0}: {1}
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.BAD_DIRECTORY_ALIAS(System.Object)">
+            <summary>
+            The following alias is not valid: &apos;{0}&apos;. For more information about valid naming conventions, see the topic &quot;Naming Restrictions for Team Foundation Server&quot; on the Microsoft Web site (https://go.microsoft.com/fwlink/?LinkId=77936).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.InvalidHexString">
+            <summary>
+            Invalid hex string. A hex string starts with &apos;0x&apos; and has an even number of characters.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_MANAGE_PROPERTIES">
+            <summary>
+            Manage project properties
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_MANAGE_SYSTEM_PROPERTIES">
+            <summary>
+            Manage system project properties
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.PROJECT_BYPASS_PROPERTY_CACHE">
+            <summary>
+            Bypass project property cache
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.Internal.TFCommonResources.NAMESPACE_DELETE_FIELD">
+            <summary>
+            Delete field from account
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.GetImageHandle(System.Object)">
+            <summary>
+            get an image handle from an object
+            </summary>
+            <param name="obj"> image object can be int or intptr, </param>
+            <returns>the handle for the image. returns IntPtr.Zero if it cannot retrive an image from the input</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.IsAlphaNumString(System.String)">
+            <summary>
+            Checks if a string contains only letters or digits based on http://www.ietf.org/rfc/rfc2396.txt.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.HasControlCharacters(System.String)">
+            <summary>
+            Checks if string contains a Control character.
+            See also <seealso cref="M:Microsoft.VisualStudio.Services.Common.ArgumentUtility.IsInvalidString(System.String)"/>
+            </summary>
+            <remarks>Only use it if you want to check for control characters.</remarks>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.IsNullOrEmpty``1(System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Determines whether the collection is null or contains no elements.
+            </summary>
+            <typeparam name="T">The IEnumerable type.</typeparam>
+            <param name="enumerable">The enumerable, which may be null or empty.</param>
+            <returns>
+                <c>true</c> if the IEnumerable is null or empty; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.IsSafeUrlProtocol(System.String)">
+            <summary>
+                Check if specified URL is safe - i.e. part of an approved list of URL schemes.
+            </summary>
+            <param name="url">
+                Url to check.
+            </param>
+            <returns>
+                <c>true</c> if the URL is safe; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.CheckSidNullEmpty(System.String,System.String)">
+            <summary>
+            Verify that the sid isn't null or empty
+            </summary>
+            <param name="sid">SID to check</param>
+            <param name="paramName"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.CombinePaths(System.String,System.String)">
+            <summary>
+            Replacement for Path.Combine.
+            For URL please use UrlUtility.CombineUrl
+            </summary>
+            <param name="path1">The first half of the path.</param>
+            <param name="path2">The second half of the path.</param>
+            <returns>The concatenated string with and leading slashes or 
+            tildes removed from the second string.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.RemoveInvalidXmlChars(System.String,System.Boolean)">
+            <summary>
+            Removes invalid XML characters from a string. 
+            </summary>
+            <param name="strIn">The string to check.</param>
+            <param name="allowCrLf">Carriage return and line-feed is considered legal if the allowCrLf parameter is set to true.</param>
+            <remarks>A character is "not displayable" if it's UnicodeCategory is in the set {LineSeparator, ParagraphSeparator, Control, Format, OtherNotAssigned}.</remarks>
+            <returns>A string containing only valid XML characters.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.CheckForNull(System.Object,System.String)">
+            <summary>
+            Throw an exception if the object is null.
+            </summary>
+            <param name="var">the object to check</param>
+            <param name="varName">the variable or parameter name to display</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.IsLegalComputerName(System.String)">
+            <summary>
+            Verify that the computer name is not empty, not too long, and doesn't contain
+            characters with ordinal values 0-31
+            </summary>
+            <param name="computerName">computer name to check</param>
+            <returns>true if the computer name is legal; false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.IsLegalComputerName(System.String,System.String@)">
+            <summary>
+            Verify that the computer name is not empty, not too long, and doesn't contain
+            characters with ordinal values 0-31. Other invalid characters include 
+            '`', '~', '!', '@', '#', '$', '%', ' ', '^', '&amp;', '*', '(', ')', '=', '+', '[',
+            ']', '{', '}', '\\', '|', ';', ':', '\'', '"', ',', '&lt;', '&gt;', '/', '?'
+            </summary>
+            <param name="computerName">computer name to check</param>
+            <param name="error"></param>
+            <returns>true if the computer name is legal; false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.IsLegalIdentity(System.String)">
+            <summary>
+            Checks to see if the identity consists only of legal characters and is less than the maximum
+            length.
+            </summary>
+            <param name="identity">identity to check</param>
+            <returns>true if the identity is legal; false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.IsLegalXmlString(System.String)">
+            <summary>
+            Returns true if the given string can be transmitted to an XML web service.
+            </summary>
+            <param name="str">string to check for disallowed XML chars</param>
+            <returns>true if the string is legal; false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.AddXmlAttribute(System.Xml.XmlNode,System.String,System.String)">
+            <summary>
+            Adds an attribute to the node if the value is non-null.
+            </summary>
+            <param name="node">the XML node</param>
+            <param name="attrName">the name of the attribute</param>
+            <param name="value">the value of the attribute</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.EnumToString``1(System.Enum)">
+            <summary>
+            Format the enum as a string for use with XML.
+            </summary>
+            <typeparam name="T">the type of enum</typeparam>
+            <param name="value">the enum value</param>
+            <returns>a string representing the enum value</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.EnumFromString``1(System.String)">
+            <summary>
+            Construct an enum from a string for use with XML.
+            </summary>
+            <typeparam name="T">the type of enum to return</typeparam>
+            <param name="s">the string</param>
+            <returns>the enum</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.CombineArrays``1(``0[],``0[])">
+            <summary>
+            Used by multiple places for combining arrays of items
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.CopyCollection``1(System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Used by multiple places for making an array of items from an existing collection.
+            This version is around so the compiler can do type inferencing.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.CopyCollection``1(System.Collections.ICollection)">
+            <summary>
+            Used by multiple places for making an array of items from an existing collection
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.SafeRelease(System.IntPtr)">
+            <summary>
+            Release a COM object.  The difference between this and Marshal.Release is that we are 
+            tolerant of NULL COM pointers.
+            </summary>
+            <param name="punk">COM object reference to release.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.TranslateEnum(System.Type,System.String[],System.Int32)">
+            <summary>
+             Translates an array of enum names into an integer bitfield.
+             A string of "*" will return the value specified in allPermissions.
+             Throws ArgumentException if a string is not found.
+            </summary>
+            <param name="enumClass">Enumeration class to get names from.</param>
+            <param name="array">Permission names.</param>
+            <param name="allPermissions">The set of bits that defines all permissions for this type.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.TranslateEnum(System.Type,System.Int32)">
+            <summary>
+             Translates an integer bitfield back into an array of enumeration names.
+            </summary>
+            <param name="enumClass">Enumeration class to get names from</param>
+            <param name="bits">Bitfield</param>
+            <returns>Array of enumeration string names</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.SafeDispose(System.IDisposable)">
+            <summary>
+            invokes dispose safely by checkin that the reference is not null 
+            </summary>
+            <param name="instance"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.StripEnd(System.Uri,System.String[])">
+            <summary>
+            Removes the ending of the input uri if the end of the absolute uri matches one of the strings in the 'stringsToStrip'
+            </summary>
+            <param name="uri"></param>
+            <param name="stringsToStrip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.StripEnd(System.String,System.String[])">
+            <summary>
+            Removes the ending of the input string if the end matches one of the strings in the 'stringsToStrip'
+            </summary>
+            <param name="stringToStrip"></param>
+            <param name="stringsToStrip"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.EscapeString(System.String,System.Char)">
+            <summary>
+            Repeat each occurance of the specified character. 
+            </summary>
+            <param name="text">An input string</param>
+            <param name="escapeChar">A character to escape.</param>
+            <example>
+            string text = TFCommonUtil.EscapeString("a'bc", '\'');
+            Debug.Assert(text == "a''bc");
+            </example>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.AreTypesEquivalent(System.Type,System.Type)">
+            <summary>
+            Checks if the two given types are equivalent. This check is preferred over
+            type.Equals(otherType) or an == comparison because it handles Embeddable Interop Types.
+            This method is a substitute for type.IsEquivalentTo(otherType) for assemblies which target
+            framework 3.5 and earlier. See:
+            http://devdiv/sites/vsarch/Wiki/Type%20identity%20and%20type%20equivalence%20with%20Embedded%20Interop%20Types.aspx
+            </summary>
+            <param name="a">The first type</param>
+            <param name="b">The second type</param>
+            <returns>True if the two given types are equivalent</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.GetSqlTimestamp(System.String)">
+            <summary>
+            Converts string to sql timestamp byte array
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Common.TFCommonUtil.Retry(System.Int32,System.Int32,System.Action{System.Int32},System.Func{System.Exception,System.Int32,System.Boolean})">
+            <summary>
+            Handles automatically retrying when exceptions occur.
+            </summary>
+            <param name="count">Number of times to retry</param>
+            <param name="retryDelay">Delay in milliseconds before retrying when an exception occurs</param>
+            <param name="action">Action to perform in a retry loop</param>
+            <param name="exceptionAction">Optional, action to perform when an exception is thrown prior to retrying.  
+            If the function is null or returns 'true' we will continue retrying up to the count limit.  If it returns 'false'
+            we will rethrow the exception.</param>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Common.TFCommonUtil.MaxGroupNameLength">
+            <summary>
+            Maximum Group Name Length
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Common.TFCommonUtil.MaxGroupDescriptionLength">
+            <summary>
+            Maximum Group Description Length
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Framework.Common.TeamFoundationSupportedFeatures">
+            <summary>
+            Enum which has the features supported by either the client or server
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.TeamFoundationSupportedFeatures.None">
+            <summary>
+            None of the features in this enum are supported.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.TeamFoundationSupportedFeatures.IdentityProperties">
+            <summary>
+            The client supports strongly-typed identity properties.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.TeamFoundationSupportedFeatures.All">
+            <summary>
+            This is a combination of all the features which are supported.
+            Subject to change across releases.  You can send this value 
+            (from client object model to server, or from server to client object model)
+            and mask with it, but you should not test for equality against it.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor.AccountName">
+            <summary>
+            NT account name (domain\alias)
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor.DisplayName">
+            <summary>
+            Display name
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor.AdministratorsGroup">
+            <summary>
+            Find project admin group
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor.Identifier">
+            <summary>
+            Find the identity using the identifier
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor.MailAddress">
+            <summary>
+            Email address
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor.General">
+             <summary>
+             A general search for an identity. 
+             </summary>
+             <remarks>
+             This is the default search factor for shorter overloads of ReadIdentity, and typically the correct choice for user input.
+             
+             Use the general search factor to find one or more identities by one of the following properties:
+             * Display name
+             * account name
+             * UniqueName
+            
+             UniqueName may be easier to type than display name. It can also be used to indicate a single identity when two or more identities share the same display name (e.g. "John Smith")
+             </remarks>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor.Alias">
+            <summary>
+            Alternate login username
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor.Domain">
+            <summary>
+            Find identity using Domain/TenantId
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.IdentitySearchFactor.DirectoryAlias">
+            <summary>
+            Find identity using DirectoryAlias
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.MembershipQuery.None">
+            <summary>
+            Query will not return any membership data
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.MembershipQuery.Direct">
+            <summary>
+            Query will return only direct membership data
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.MembershipQuery.Expanded">
+            <summary>
+            Query will return expanded membership data
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.MembershipQuery.ExpandedUp">
+            <summary>
+            Query will return expanded up membership data (parents only)
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.MembershipQuery.ExpandedDown">
+            <summary>
+            Query will return expanded down membership data (children only)
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.GroupProperty.Name">
+            <summary>
+            The name of an application group
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.GroupProperty.Description">
+            <summary>
+            The description of an application group
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.ReadIdentityOptions.IncludeReadFromSource">
+            <summary>
+            read from IMS store only, or also from external sources such as AD.
+            </summary>
+            <remarks>
+            Reading from the identity provider will add an overhead. An example of when
+            this option may be required, is to assign permission(s) to some identity
+            that may or may not be in the database already.
+            </remarks>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.ReadIdentityOptions.TrueSid">
+            <summary>
+            whether to map back well known TFS Sids to their well known form, or expose
+            their true value.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.ReadIdentityOptions.ExtendedProperties">
+            <summary>
+            read extended identity properties.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.Framework.Common.ReadIdentityOptions.DoNotQualifyAccountNames">
+            <summary>
+            By default, the IdentityService will not permit searches solely by AccountName
+            at an Application or lower context. Setting this flag will execute the search as-is
+            without attempting to domain-qualify the search
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Framework.Common.IdentityPropertyScope">
+            <summary>
+            The scope which a property will be scoped to.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper">
+            <summary>
+            Helper methods for SID based descriptors (Windows and TFS).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper.ConstructWellKnownSid(System.UInt32,System.UInt32)">
+            <summary>
+            Construct well known Team Foundation identifier.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper.DecodeSid(System.Byte[],System.Int32@,System.UInt64@)">
+            <summary>
+            Convert a binary SID into it's parts.
+            The code for this conversion comes from the SecurityIdentifier object.
+            </summary>
+            <param name="binarySid"></param>
+            <param name="revision"></param>
+            <param name="authority"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper.IsServiceAccount(System.Byte[])">
+            <summary>
+            Is this the the well known Sid for Network Service or
+            Local Service
+            </summary>
+            <param name="sid">Sid to check (in binary form)</param>
+            <returns>true if this is Network Service or Local Service, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper.IsNTAccount(System.Byte[])">
+            <summary>
+            Is this the SID of an NT Identity.  NT Identities can come from
+            either the SAM database or Active Directory.  They come from the 
+            Windows NT Authority (5) and have 21 as their first sub authority.
+            </summary>
+            <param name="sid">SID to check (in binary form)</param>
+            <returns>true if this is an NT Identity, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper.IsBuiltInAccount(System.Byte[])">
+            <summary>
+            Is this the SID of one of the builtin accounts?  All builtin accounts
+            come from the Windows NT Authority (5) and have 32 as
+            their first sub authority.
+            </summary>
+            <param name="sid">SID to check</param>
+            <returns>true if SID has "BUILTIN" as its domain, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper.IsNTServiceAccount(System.Byte[])">
+            <summary>
+            Is this the SID of one of the NT Service accounts?  All NT Service accounts
+            come from the Windows NT Authority (5) and have 80 as
+            their first sub authority.
+            </summary>
+            <param name="sid">SID to check</param>
+            <returns>true if SID has "NT Service" as its domain, false otherwise</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper.IsAadGroupSid(System.Byte[])">
+            <summary>
+            Is this an AAD Group
+            </summary>
+            <param name="sid">Sid to check (in binary form)</param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper.WellKnownGroupSidComparer">
+            <summary> Used for comparing a SID vs a WelllKnownGroupSid. </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.Framework.Common.SidIdentityHelper.WellKnownDomainSidComparer">
+            <summary>
+            Used for comparing a SID vs a WelllKnownGroupSid. 
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.LoggingDBReportingNames">
+            <summary>
+            These constants are used in the logging database to record the web service that
+            submitted each log record.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.EventLogSourceNames">
+            <summary>
+            These constants are the "source" used by each web service for Event Log entries.
+            </summary>
+            These constants are duplicated in the VssAzurePrep\EventSourceInstaller.cs.
+            If you change values here, make sure to update that file as well.
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TraceComponentNames">
+            <summary>
+            These mnemonics are included in the diagnostic trace output to identify the web service
+            that is providing the trace output.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.WatsonReportingNames">
+            <summary>
+            These are the names used by the Team Foundation components. These names end up in
+            the P2 parameter of the TeamFoundationUE event.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.RedirectCommands.Authenticate">
+            <summary>
+            The Authenticate Command is sent when the server requires the caller
+            to authenticate to perform the requested action. Following the
+            command will be one or more providers the server supports. The
+            client should choose one of the supported providers if the client
+            can. It not the caller can't complete the request.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.RedirectCommands.CreateProfile">
+            <summary>
+            Profile Commands are sent when users authenticate against the server
+            but the identity provider can't give us enough information to give
+            a basic profile. TFS requires the caller to provide the basic
+            information and validate it.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.CommonSqlError">
+            <summary>
+            The following SQL error numbers are common error numbers recognized by all TFS components.
+            They are registered in the database using the Integration components' process of
+            registering error messages. These error numbers range from 480000 - 499999
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.SqlCommandTimeout">
+            <summary>
+            Predefined SQL command timeouts in seconds
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.StandardSqlError">
+            <summary>
+            The following SQL error numbers are recognized when part of a SqlException object.
+            The error numbers represent either a potentially transient condition (mapped
+            into a DatabaseConnection or DatabaseFull object) or a permanent condition (mapped
+            into a DatabaseConfiguration object).
+            </summary>
+            <remarks>
+            Sorted by error number for clarity.
+            </remarks>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.CollectionServicingTokens">
+            <summary>
+            Provides access to Team Project Collection servicing token names and values
+            used when setting up or invoking a collection servicing method.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.ProxyConstants.DownloadUrlSuffix">
+            URL suffix used to download items from the web service using pure HTTP protocol
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamConstants">
+            <summary>
+            Constants associated with 'Teams' in TFS.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TeamPropertyName">
+            <summary>
+            Property on a group which indicates that it is a team.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.DefaultTeamPropertyName">
+            <summary>
+            Property on a project which indicates the team foundation id of the default team.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TeamSettingsPropertyName">
+            <summary>
+            Property on a group which indicates that it is a team.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TileZoneTileOrderPropertyName">
+            <summary>
+            Property on a group which indicates the tile order for a given tile zone.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.DefaultValueIndexPropertyName">
+            <summary>
+            Property name for the property that specifies the default value to use in the area path field since there can be more than one
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.DefaultIncludeChildrenValue">
+            <summary>
+            Default value for Include children for Team Area paths
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TeamFieldSettingsPropertyName">
+            <summary>
+            Property name for the property which team field settings.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TeamFieldDefaultValueIndexPropertyName">
+            <summary>
+            Property name for the property which contains the 'team field' default values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TeamFieldValuesPropertyName">
+            <summary>
+            Property name for the property which contains the 'team field' default values.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TeamFieldValueFormat">
+            <summary>
+            Format string for setting the default team value for a team.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.BacklogIterationPropertyName">
+            <summary>
+            Property name for the Backlog iteration (set to the Guid of the iteration that holds the backlog)
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TeamIterationPropertyName">
+            <summary>
+            Property name for the collection of iteration paths that are associated with a team
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TeamIterationIdPropertyNameFormat">
+            <summary>
+            Property name format for the collection of iteration paths that are associated with a team
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.TeamChartCachePropertyName">
+            <summary>
+            Property name for cached chart data associated with Team Identity.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.WIPLimitsPropertyName">
+            <summary>
+            Property name for Work In Progress Limit data for a teams backlog board
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.CumulativeFlowDiagramStartDate">
+            <summary>
+            Property name for Cumulative Flow Diagram start date
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamConstants.CumulativeFlowDiagramHideIncoming">
+            <summary>
+            Property name for Cumulative Flow Diagram hide incoming flag
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.DragDropConstants">
+            <summary>
+            Constant strings used in drag drop
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.CodeReviewContextKeyNames">
+            <summary>
+            Constants used for saving/restoring the code review context in the Team Explorer
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationServerException">
+            <summary>
+            Base class for all custom exceptions thrown from TeamFoundation code.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerException.#ctor">
+            <summary>
+            No-arg constructor that sumply defers to the base class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerException.#ctor(System.String)">
+            <summary>
+            Initializes an exception with the specified error message.
+            </summary>
+            <param name="message">A human readable message that describes the error</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes an exception with the specified error message and an inner exception that caused this exception to be raised.
+            </summary>
+            <param name="message">A human readable message that describes the error</param>
+            <param name="innerException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerException.GetProperty``1(System.String)">
+            <summary>
+            Retrieves a property from the list of properties returned from the server if it exists. If no such property
+            exists then a default value is returned for the requested type.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TeamFoundationServerException.Data">
+            <summary>
+            Gets the data associated with this exception, if any.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.CredentialProcurement.Failed">
+            <summary>
+            Failed to refresh or acquire new credentials.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.CredentialProcurement.Succeeded">
+            <summary>
+            Successfully refreshed or acquired new credentials.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.CredentialProcurement.Cancelled">
+            <summary>
+            The refresh or acquire operation was cancelled.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationAuthenticationError">
+            <summary>
+            Specifies the errors which may occur during authentication.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamFoundationAuthenticationError.None">
+            <summary>
+            No authentication-related error occurred.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamFoundationAuthenticationError.Cancelled">
+            <summary>
+            The authentication attempt was cancelled.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamFoundationAuthenticationError.GetTokenFailed">
+            <summary>
+            The authentication attempt encountered an error. See the inner exception for more details.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamFoundationAuthenticationError.InteractiveRequired">
+            <summary>
+            An interactive environment is required for the credentials to be authenticated.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamFoundationAuthenticationError.TokenUnauthorized">
+            <summary>
+            The token retrieved from the provider is not able to authenticate with the remote server.
+            </summary>
+        </member>
+        <member name="F:Microsoft.TeamFoundation.TeamFoundationAuthenticationError.UserMismatched">
+            <summary>
+            The authenticated user is not the user currently associated with the connection.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationServerUnauthorizedException">
+            <summary>
+            This exception is thrown when the user is rejected by the web server (IIS rejects the
+            request because the user isn't authorized to access the specified site/service).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerUnauthorizedException.#ctor">
+            <summary>
+            No-arg constructor that simply defers to the base class.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerUnauthorizedException.#ctor(System.String)">
+            <summary>
+            Initializes an exception with the specified server name or URL.
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerUnauthorizedException.#ctor(System.Exception)">
+            <summary>
+            Initializes an exception with the message from the inner exception and an inner exception that caused this exception to be raised.
+            </summary>
+            <param name="innerException"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerUnauthorizedException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes an exception with the specified server name or URL and an inner exception that caused this exception to be raised.
+            </summary>
+            <param name="message"></param>
+            <param name="innerException"></param>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TeamFoundationServerUnauthorizedException.AuthenticationError">
+            <summary>
+            Gets a value indicating details about the particular error encountered.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TeamFoundationServerUnauthorizedException.WebException">
+            <summary>
+            Gets the web exception which triggered this exception, or null if not available.
+            </summary>
+        </member>
+        <member name="P:Microsoft.TeamFoundation.TeamFoundationServerUnauthorizedException.WebResponse">
+            <summary>
+            Gets the web response which triggered this exception, or null if not available.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationInvalidAuthenticationException">
+            <summary>
+            Indicates that the authentication with the remote server cannot be fulfilled.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationInvalidAuthenticationException.#ctor(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationInvalidAuthenticationException.#ctor(System.String,Microsoft.TeamFoundation.TeamFoundationAuthenticationError)">
+            <summary>
+            
+            </summary>
+            <param name="message"></param>
+            <param name="error"></param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationServerVersionCheckException">
+            <summary>
+            This exception is thrown when the user is rejected by the web server (IIS rejects the
+            request because the user isn't authorized to access the specified site/service).
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerVersionCheckException.#ctor(System.String)">
+            <summary>
+            Initializes an exception with the specified server name or URL.
+            </summary>
+            <param name="nameOrUrl">The server name or URL</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerVersionCheckException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes an exception with the specified server name or URL as well as the accepted range of versions.
+            </summary>
+            <param name="nameOrUrl">The server name of URL</param>
+            <param name="range">The range of server version</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationInvalidServerNameException">
+            <summary>
+            This exception is thrown when the server name passed in to the client is invalid.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationInvalidServerNameException.#ctor(System.String)">
+            <summary>
+            Initializes an exception with the specified server name or URL.
+            </summary>
+            <param name="nameOrUrl">The server name or URL</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException">
+            <summary>
+            This exception is thrown when the server name passed in to the client is invalid.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException.#ctor(System.String,System.String)">
+            <summary>
+            Initializes an exception with the specified server name or URL.
+            </summary>
+            <param name="nameOrUrl">The server name or URL</param>
+            <param name="reason">The server-provided reason why servicing isn't possible</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes an exception with the specified message and inner exception.
+            </summary>
+            <param name="message">The error message to provide for the exception</param>
+            <param name="innerException">The original exception which caused this exception</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException.#ctor(System.String,System.String,System.Exception)">
+            <summary>
+            Initializes an exception with the specified server name or URL and the specified
+            inner exception.
+            </summary>
+            <param name="nameOrUrl">The server name or URL</param>
+            <param name="reason">The server-provided reason why servicing isn't possible</param>
+            <param name="innerException">The original exception which caused this exception</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServiceUnavailableException.#ctor(System.String)">
+            <summary>
+            Initializes an exception with the specified server name or URL.
+            </summary>
+            <param name="reason">The server-provided reason why servicing isn't possible</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.DatetimeShiftDetectedException">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationServerInvalidResponseException">
+            <summary>
+            This exception is thrown when HTML is returned from a SOAP call.
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerInvalidResponseException.#ctor(System.String,System.Exception,System.Net.HttpStatusCode,System.String)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="message">Message.  To get the default message, use the results of calling FormatInvalidServerResponseMessage.</param>
+            <param name="innerException">Inner Exception.  Pass null if none.</param>
+            <param name="statusCode">HttpWebResponse.StatusCode</param>
+            <param name="responseData">String representing the response data.  Use the GetResponseString to assist with this.</param>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerInvalidResponseException.FormatInvalidServerResponseMessage(System.Net.HttpWebResponse)">
+            <summary>
+            Formats the HttpWebResponse into a string suitable for throwing in an exception.
+            </summary>
+            <param name="response">The response object</param>
+            <returns>A string suitable for throwing in an exception</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerInvalidResponseException.FormatHttpStatus(System.Net.HttpWebResponse)">
+            <summary>
+            Formats the HttpStatusCode into a string suitable for throwing in an exception.
+            </summary>
+            <param name="response">The response object</param>
+            <returns>A string suitable for throwing in an exception</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationServerInvalidResponseException.GetResponseString(System.IO.Stream)">
+            <summary>
+            Gets the response stream as a string.
+            If the stream is a TracingStream, it'll get logged.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationServerInvalidRequestException">
+            <summary>
+            Thrown when the server returns a 400 (Bad Request) status code.
+            </summary>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationClientVersionCheckException">
+            <summary>
+            This exception is thrown when the server version is not supported by the client
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationClientVersionCheckException.#ctor(System.String)">
+            <summary>
+            Initializes an exception with the specified server name or URL.
+            </summary>
+            <param name="nameOrUrl">The server name or URL</param>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.TeamFoundationExceptionFormatter">
+            <summary>
+            Team Foundation exception format class
+            </summary>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationExceptionFormatter.FormatException(System.Exception,System.Boolean)">
+            <summary>
+             Format a exception, including all inner exceptions.
+            </summary>
+            <param name="exception">The top-level exception.</param>
+            <param name="useBriefFormat">Omit exception details from return value</param>
+            <returns>A formatted exception string that includes nested exceptions.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationExceptionFormatter.formatOneException(System.Exception,System.Boolean)">
+            <summary>
+             Format a single exception.
+            </summary>
+            <param name="exception">The exception</param>
+            <param name="useBriefFormat">Omit exception details</param>
+            <returns>A formatted exception string.</returns>
+        </member>
+        <member name="M:Microsoft.TeamFoundation.TeamFoundationExceptionFormatter.formatDataDictionary(System.Exception)">
+            <summary>
+            Format an exception's Data dictionary.
+            </summary>
+            <param name="exception">Exception to format the .Data dictionary.</param>
+            <returns>String form of the .Data dictioanry.</returns>
+        </member>
+        <member name="T:Microsoft.TeamFoundation.InvalidPathException">
+            <summary>
+            INTERNAL Exception thrown when something is wrong with the syntax of a path.  It derives
+            from ArgumentException to match the exception used by System.IO.Path.
+            </summary>
+        </member>
+    </members>
+</doc>
