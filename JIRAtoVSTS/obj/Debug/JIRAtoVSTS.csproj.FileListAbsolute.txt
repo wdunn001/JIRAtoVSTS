@@ -104,3 +104,6 @@ c:\users\willi\OneDrive\Documents\Visual Studio 2017\Projects\JIRAtoVSTS\JIRAtoV
 c:\users\willi\OneDrive\Documents\Visual Studio 2017\Projects\JIRAtoVSTS\JIRAtoVSTS\obj\Debug\JIRAtoVSTS.csproj.CoreCompileInputs.cache
 c:\users\willi\OneDrive\Documents\Visual Studio 2017\Projects\JIRAtoVSTS\JIRAtoVSTS\obj\Debug\JIRAtoVSTS.exe
 c:\users\willi\OneDrive\Documents\Visual Studio 2017\Projects\JIRAtoVSTS\JIRAtoVSTS\obj\Debug\JIRAtoVSTS.pdb
+C:\Users\willi\OneDrive\Documents\Visual Studio 2017\Projects\jtov\JIRAtoVSTS\JIRAtoVSTS\bin\Debug\JIRAtoVSTS.exe.config
+C:\Users\willi\OneDrive\Documents\Visual Studio 2017\Projects\jtov\JIRAtoVSTS\JIRAtoVSTS\obj\Debug\JIRAtoVSTS.exe
+C:\Users\willi\OneDrive\Documents\Visual Studio 2017\Projects\jtov\JIRAtoVSTS\JIRAtoVSTS\obj\Debug\JIRAtoVSTS.pdb
