@@ -1,2 +1,2 @@
 # JIRAtoVSTS
-I console application that converts all tickets from Jira to VSTS
+a console application that converts all tickets from Jira to VSTS
